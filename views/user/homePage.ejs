@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blush Berry – Lipsticks</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Poppins', sans-serif; background: #fff; color: #222; overflow-x: hidden; }
+    a { text-decoration: none; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    .fade-up { animation: fadeUp 0.7s ease both; }
+    .nav-link:hover { color: #c0415a !important; border-bottom: 2px solid #c0415a; padding-bottom: 2px; }
+    .shade-card:hover { box-shadow: 0 12px 40px rgba(192,65,90,0.15) !important; transform: translateY(-4px); transition: all 0.3s ease; }
+    .product-card:hover { box-shadow: 0 12px 36px rgba(0,0,0,0.12) !important; transform: translateY(-4px); transition: all 0.3s ease; }
+    .btn-cart:hover { background: #c0415a !important; }
+    .btn-shop:hover { background: #a33049 !important; }
+  </style>
+</head>
+<body style="background:#fff;">
+
+  <!-- ═══════════════════════════════════════════════════
+       NAVBAR
+  ═══════════════════════════════════════════════════ -->
+  <nav style="position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid #f2e6e9;padding:0 48px;height:60px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(0,0,0,0.04);">
+    <!-- Logo -->
+    <a href="/" style="font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:#c0415a;letter-spacing:-0.5px;">
+      Blush<span style="color:#1a1a2e;">Berry</span>
+    </a>
+
+    <!-- Nav Links -->
+    <ul style="list-style:none;display:flex;gap:36px;align-items:center;">
+      <li><a href="#" class="nav-link" style="font-size:13px;font-weight:500;color:#c0415a;border-bottom:2px solid #c0415a;padding-bottom:2px;transition:color 0.2s;">Home</a></li>
+      <li><a href="#" class="nav-link" style="font-size:13px;font-weight:400;color:#555;transition:color 0.2s;">Shop</a></li>
+      <li><a href="#" class="nav-link" style="font-size:13px;font-weight:400;color:#555;transition:color 0.2s;">Order</a></li>
+      <li><a href="#" class="nav-link" style="font-size:13px;font-weight:400;color:#555;transition:color 0.2s;">Contact</a></li>
+      <li><a href="/login" class="nav-link" style="font-size:13px;font-weight:400;color:#555;transition:color 0.2s;">Log in</a></li>
+    </ul>
+
+    <!-- Search Icon -->
+    <button style="background:none;border:none;cursor:pointer;font-size:16px;color:#555;padding:6px;">
+      <svg width="18" height="18" fill="none" stroke="#555" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════
+       HERO SECTION
+  ═══════════════════════════════════════════════════ -->
+  <section style="background:linear-gradient(110deg,#fff8f9 55%,#fce8ed 100%);min-height:420px;display:flex;align-items:center;padding:60px 48px;position:relative;overflow:hidden;">
+    <!-- Left Content -->
+    <div style="max-width:460px;animation:fadeUp 0.8s ease both;position:relative;z-index:2;">
+      <p style="font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#c0415a;font-weight:500;margin-bottom:10px;">New Collection 2024</p>
+      <h1 style="font-family:'Playfair Display',serif;font-size:68px;font-weight:900;color:#1a1a2e;line-height:1;margin-bottom:18px;letter-spacing:-1px;">LIPSTICKS</h1>
+      <p style="font-size:14px;color:#888;line-height:1.8;margin-bottom:14px;max-width:340px;">Find your perfect shade.</p>
+      <p style="font-size:13px;color:#aaa;line-height:1.8;margin-bottom:32px;max-width:360px;">
+        Discover a curated collection of luxurious lip colors — from bold crimson reds to soft barely-there nudes. Every shade tells a story.
+      </p>
+      <a href="#shop" class="btn-shop" style="display:inline-block;background:#c0415a;color:#fff;padding:14px 38px;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;border-radius:3px;transition:background 0.25s;">
+        Shop the Collection
+      </a>
+    </div>
+
+    <!-- Decorative pink circles -->
+    <div style="position:absolute;right:-100px;top:-100px;width:480px;height:480px;background:radial-gradient(circle,#f9d5de 0%,transparent 65%);border-radius:50%;z-index:1;"></div>
+    <div style="position:absolute;right:200px;bottom:-60px;width:200px;height:200px;background:radial-gradient(circle,#fce8ed 0%,transparent 70%);border-radius:50%;z-index:1;"></div>
+
+    <!-- Lipstick visuals (CSS art) -->
+    <div style="position:absolute;right:80px;top:50%;transform:translateY(-50%);display:flex;gap:14px;align-items:flex-end;z-index:3;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
+        <div style="width:16px;height:12px;background:#d64d6a;clip-path:polygon(20% 0%,80% 0%,100% 100%,0% 100%);border-radius:2px 2px 0 0;"></div>
+        <div style="width:20px;height:130px;background:linear-gradient(180deg,#e06080 0%,#8b1a2f 100%);border-radius:2px 2px 0 0;"></div>
+        <div style="width:24px;height:18px;background:#c8bfc2;border-radius:0 0 3px 3px;"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0;margin-bottom:30px;">
+        <div style="width:16px;height:12px;background:#e8756a;clip-path:polygon(20% 0%,80% 0%,100% 100%,0% 100%);border-radius:2px 2px 0 0;"></div>
+        <div style="width:20px;height:160px;background:linear-gradient(180deg,#e8908a 0%,#a03020 100%);border-radius:2px 2px 0 0;"></div>
+        <div style="width:24px;height:18px;background:#d4c0c0;border-radius:0 0 3px 3px;"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0;margin-bottom:10px;">
+        <div style="width:16px;height:12px;background:#c98fa0;clip-path:polygon(20% 0%,80% 0%,100% 100%,0% 100%);border-radius:2px 2px 0 0;"></div>
+        <div style="width:20px;height:105px;background:linear-gradient(180deg,#d4a0b4 0%,#7a3a50 100%);border-radius:2px 2px 0 0;"></div>
+        <div style="width:24px;height:18px;background:#c8b8bc;border-radius:0 0 3px 3px;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SHADE SELECTOR
+  ═══════════════════════════════════════════════════ -->
+  <section style="padding:64px 48px;background:#fff;" id="shades">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;">
+      <div>
+        <p style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#c0415a;margin-bottom:8px;">Handpicked For You</p>
+        <h2 style="font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:#1a1a2e;">Find Your Perfect Shade</h2>
+      </div>
+      <a href="#" style="font-size:12px;color:#c0415a;font-weight:500;border-bottom:1px solid #c0415a;padding-bottom:2px;">View All →</a>
+    </div>
+
+    <div style="display:flex;gap:28px;flex-wrap:wrap;">
+
+      <!-- Shade Card: Maize -->
+      <div class="shade-card" style="flex:1;min-width:200px;background:#fffafb;border:1px solid #f5e8ec;border-radius:12px;padding:32px 24px;text-align:center;cursor:pointer;transition:all 0.3s ease;">
+        <div style="position:relative;width:90px;height:90px;margin:0 auto 20px;">
+          <div style="width:90px;height:90px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#e8b08a,#c8956c);box-shadow:0 10px 30px rgba(200,149,108,0.4);"></div>
+        </div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:#1a1a2e;margin-bottom:6px;">Maize</h3>
+        <p style="font-size:12px;color:#bbb;margin-bottom:6px;">Warm Golden Nude</p>
+        <div style="display:flex;justify-content:center;gap:5px;margin-bottom:18px;">
+          <div style="width:14px;height:14px;border-radius:50%;background:#c8956c;border:1px solid #eee;"></div>
+          <div style="width:14px;height:14px;border-radius:50%;background:#d4a87c;border:1px solid #eee;"></div>
+          <div style="width:14px;height:14px;border-radius:50%;background:#b87a52;border:1px solid #eee;"></div>
+        </div>
+        <a href="#" style="font-size:11px;color:#c0415a;font-weight:600;letter-spacing:0.8px;border-bottom:1px solid #c0415a;text-transform:uppercase;">Shop →</a>
+      </div>
+
+      <!-- Shade Card: Saffir -->
+      <div class="shade-card" style="flex:1;min-width:200px;background:#fffafb;border:1px solid #f5e8ec;border-radius:12px;padding:32px 24px;text-align:center;cursor:pointer;transition:all 0.3s ease;">
+        <div style="width:90px;height:90px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#d4668e,#b5446e);box-shadow:0 10px 30px rgba(181,68,110,0.4);margin:0 auto 20px;"></div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:#1a1a2e;margin-bottom:6px;">Saffir</h3>
+        <p style="font-size:12px;color:#bbb;margin-bottom:6px;">Deep Berry Pink</p>
+        <div style="display:flex;justify-content:center;gap:5px;margin-bottom:18px;">
+          <div style="width:14px;height:14px;border-radius:50%;background:#b5446e;border:1px solid #eee;"></div>
+          <div style="width:14px;height:14px;border-radius:50%;background:#c75a80;border:1px solid #eee;"></div>
+          <div style="width:14px;height:14px;border-radius:50%;background:#982a58;border:1px solid #eee;"></div>
+        </div>
+        <a href="#" style="font-size:11px;color:#c0415a;font-weight:600;letter-spacing:0.8px;border-bottom:1px solid #c0415a;text-transform:uppercase;">Shop →</a>
+      </div>
+
+      <!-- Shade Card: Glossy -->
+      <div class="shade-card" style="flex:1;min-width:200px;background:#fffafb;border:1px solid #f5e8ec;border-radius:12px;padding:32px 24px;text-align:center;cursor:pointer;transition:all 0.3s ease;">
+        <div style="width:90px;height:90px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fcc8d4,#f4a0b0);box-shadow:0 10px 30px rgba(244,160,176,0.45);margin:0 auto 20px;"></div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:#1a1a2e;margin-bottom:6px;">Glossy</h3>
+        <p style="font-size:12px;color:#bbb;margin-bottom:6px;">Sheer Baby Pink</p>
+        <div style="display:flex;justify-content:center;gap:5px;margin-bottom:18px;">
+          <div style="width:14px;height:14px;border-radius:50%;background:#f4a0b0;border:1px solid #eee;"></div>
+          <div style="width:14px;height:14px;border-radius:50%;background:#f8bcc8;border:1px solid #eee;"></div>
+          <div style="width:14px;height:14px;border-radius:50%;background:#e88098;border:1px solid #eee;"></div>
+        </div>
+        <a href="#" style="font-size:11px;color:#c0415a;font-weight:600;letter-spacing:0.8px;border-bottom:1px solid #c0415a;text-transform:uppercase;">Shop →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       MAYBELLINE PROMO BANNER
+  ═══════════════════════════════════════════════════ -->
+  <section style="margin:0 48px 64px;border-radius:16px;background:linear-gradient(135deg,#14122a 0%,#2a1535 50%,#1a1a3e 100%);padding:56px 56px;display:flex;align-items:center;justify-content:space-between;overflow:hidden;position:relative;">
+    <!-- Decorative rings -->
+    <div style="position:absolute;right:-80px;top:-80px;width:360px;height:360px;border:1.5px solid rgba(255,255,255,0.06);border-radius:50%;"></div>
+    <div style="position:absolute;right:-20px;top:-20px;width:240px;height:240px;border:1.5px solid rgba(255,255,255,0.04);border-radius:50%;"></div>
+    <div style="position:absolute;left:45%;bottom:-40px;width:180px;height:180px;background:rgba(232,117,106,0.08);border-radius:50%;filter:blur(20px);"></div>
+
+    <!-- Text -->
+    <div style="position:relative;z-index:2;">
+      <p style="font-size:10px;letter-spacing:5px;text-transform:uppercase;color:#f4a0b0;margin-bottom:10px;font-weight:500;">MAYBELLINE NEW YORK</p>
+      <h2 style="font-family:'Playfair Display',serif;font-size:62px;font-weight:900;color:#fff;line-height:1.05;margin-bottom:14px;">
+        LIPSTICK<br/>
+        <span style="color:#e8756a;font-style:italic;">DAY</span>
+      </h2>
+      <p style="color:#aaa;font-size:13px;margin-bottom:28px;max-width:300px;">Celebrate bold beauty with exclusive one-day deals. Limited stock — shop before it runs out.</p>
+      <a href="#" style="display:inline-block;background:#e8756a;color:#fff;padding:14px 36px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;border-radius:3px;transition:background 0.2s;">SHOP NOW</a>
+    </div>
+
+    <!-- Badge -->
+    <div style="position:relative;z-index:2;text-align:center;">
+      <div style="width:130px;height:130px;border-radius:50%;border:2px solid rgba(232,117,106,0.4);display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(232,117,106,0.08);">
+        <span style="font-family:'Playfair Display',serif;font-size:40px;font-weight:900;color:#e8756a;line-height:1;">50%</span>
+        <span style="font-size:11px;letter-spacing:3px;color:#f4a0b0;text-transform:uppercase;">OFF</span>
+      </div>
+      <p style="color:#888;font-size:11px;margin-top:12px;letter-spacing:1px;">Today Only</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       PRODUCTS GRID
+  ═══════════════════════════════════════════════════ -->
+  <section style="padding:0 48px 72px;" id="shop">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;">
+      <div>
+        <p style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#c0415a;margin-bottom:8px;">Trending Now</p>
+        <h2 style="font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:#1a1a2e;">Bestsellers</h2>
+      </div>
+      <a href="#" style="font-size:12px;color:#c0415a;font-weight:500;border-bottom:1px solid #c0415a;padding-bottom:2px;">View All Products →</a>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;">
+
+      <!-- Product 1 -->
+      <div class="product-card" style="border:1px solid #f0e6e6;border-radius:10px;overflow:hidden;background:#fff;transition:all 0.3s ease;cursor:pointer;">
+        <div style="height:168px;background:linear-gradient(135deg,#fff5f7,#fce8ed);display:flex;align-items:center;justify-content:center;position:relative;">
+          <div style="display:flex;gap:8px;align-items:flex-end;">
+            <div style="width:12px;height:70px;background:linear-gradient(180deg,#e06080,#8b1a2f);border-radius:3px 3px 0 0;transform:rotate(-5deg);"></div>
+            <div style="width:12px;height:90px;background:linear-gradient(180deg,#e06080,#8b1a2f);border-radius:3px 3px 0 0;"></div>
+          </div>
+          <span style="position:absolute;top:10px;right:10px;background:#c0415a;color:#fff;font-size:9px;padding:3px 8px;border-radius:20px;font-weight:600;letter-spacing:0.5px;">NEW</span>
+          <button style="position:absolute;top:10px;left:10px;background:#fff;border:1px solid #f0e6e6;border-radius:50%;width:28px;height:28px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">♡</button>
+        </div>
+        <div style="padding:16px;">
+          <p style="font-size:9px;color:#bbb;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;">Maybelline</p>
+          <h4 style="font-size:13px;font-weight:500;color:#1a1a2e;margin-bottom:8px;line-height:1.4;">SuperStay Matte Ink</h4>
+          <div style="display:flex;gap:2px;margin-bottom:12px;">
+            <span style="color:#e8a826;font-size:12px;">★★★★★</span>
+            <span style="color:#ccc;font-size:11px;margin-left:4px;">(128)</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-weight:700;color:#c0415a;font-size:15px;">$12.99</span>
+            <button class="btn-cart" style="background:#1a1a2e;color:#fff;border:none;padding:8px 14px;font-size:10px;cursor:pointer;border-radius:4px;font-weight:500;letter-spacing:0.5px;transition:background 0.2s;">ADD TO CART</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product-card" style="border:1px solid #f0e6e6;border-radius:10px;overflow:hidden;background:#fff;transition:all 0.3s ease;cursor:pointer;">
+        <div style="height:168px;background:linear-gradient(135deg,#fff8f0,#fceee4);display:flex;align-items:center;justify-content:center;position:relative;">
+          <div style="display:flex;gap:8px;align-items:flex-end;">
+            <div style="width:12px;height:80px;background:linear-gradient(180deg,#e8a87c,#a05030);border-radius:3px 3px 0 0;transform:rotate(5deg);"></div>
+            <div style="width:12px;height:60px;background:linear-gradient(180deg,#e8a87c,#a05030);border-radius:3px 3px 0 0;"></div>
+          </div>
+          <span style="position:absolute;top:10px;right:10px;background:#e8a826;color:#fff;font-size:9px;padding:3px 8px;border-radius:20px;font-weight:600;letter-spacing:0.5px;">HOT</span>
+          <button style="position:absolute;top:10px;left:10px;background:#fff;border:1px solid #f0e6e6;border-radius:50%;width:28px;height:28px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">♡</button>
+        </div>
+        <div style="padding:16px;">
+          <p style="font-size:9px;color:#bbb;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;">Maybelline</p>
+          <h4 style="font-size:13px;font-weight:500;color:#1a1a2e;margin-bottom:8px;line-height:1.4;">Color Sensational Nude</h4>
+          <div style="display:flex;gap:2px;margin-bottom:12px;">
+            <span style="color:#e8a826;font-size:12px;">★★★★</span><span style="color:#ddd;font-size:12px;">★</span>
+            <span style="color:#ccc;font-size:11px;margin-left:4px;">(87)</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-weight:700;color:#c0415a;font-size:15px;">$9.99</span>
+            <button class="btn-cart" style="background:#1a1a2e;color:#fff;border:none;padding:8px 14px;font-size:10px;cursor:pointer;border-radius:4px;font-weight:500;letter-spacing:0.5px;transition:background 0.2s;">ADD TO CART</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product-card" style="border:1px solid #f0e6e6;border-radius:10px;overflow:hidden;background:#fff;transition:all 0.3s ease;cursor:pointer;">
+        <div style="height:168px;background:linear-gradient(135deg,#fdf5f8,#f9e5ef);display:flex;align-items:center;justify-content:center;position:relative;">
+          <div style="display:flex;gap:8px;align-items:flex-end;">
+            <div style="width:12px;height:95px;background:linear-gradient(180deg,#c87090,#7a2040);border-radius:3px 3px 0 0;"></div>
+            <div style="width:12px;height:72px;background:linear-gradient(180deg,#c87090,#7a2040);border-radius:3px 3px 0 0;transform:rotate(-4deg);"></div>
+          </div>
+          <span style="position:absolute;top:10px;right:10px;background:#c0415a;color:#fff;font-size:9px;padding:3px 8px;border-radius:20px;font-weight:600;letter-spacing:0.5px;">NEW</span>
+          <button style="position:absolute;top:10px;left:10px;background:#fff;border:1px solid #f0e6e6;border-radius:50%;width:28px;height:28px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">♡</button>
+        </div>
+        <div style="padding:16px;">
+          <p style="font-size:9px;color:#bbb;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;">Maybelline</p>
+          <h4 style="font-size:13px;font-weight:500;color:#1a1a2e;margin-bottom:8px;line-height:1.4;">Fit Me Lip Color</h4>
+          <div style="display:flex;gap:2px;margin-bottom:12px;">
+            <span style="color:#e8a826;font-size:12px;">★★★★★</span>
+            <span style="color:#ccc;font-size:11px;margin-left:4px;">(204)</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-weight:700;color:#c0415a;font-size:15px;">$8.49</span>
+            <button class="btn-cart" style="background:#1a1a2e;color:#fff;border:none;padding:8px 14px;font-size:10px;cursor:pointer;border-radius:4px;font-weight:500;letter-spacing:0.5px;transition:background 0.2s;">ADD TO CART</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="product-card" style="border:1px solid #f0e6e6;border-radius:10px;overflow:hidden;background:#fff;transition:all 0.3s ease;cursor:pointer;">
+        <div style="height:168px;background:linear-gradient(135deg,#fff5f7,#fce8ed);display:flex;align-items:center;justify-content:center;position:relative;">
+          <div style="display:flex;gap:8px;align-items:flex-end;">
+            <div style="width:12px;height:85px;background:linear-gradient(180deg,#f08090,#a02040);border-radius:3px 3px 0 0;transform:rotate(3deg);"></div>
+            <div style="width:12px;height:65px;background:linear-gradient(180deg,#f08090,#a02040);border-radius:3px 3px 0 0;"></div>
+          </div>
+          <span style="position:absolute;top:10px;right:10px;background:#22b573;color:#fff;font-size:9px;padding:3px 8px;border-radius:20px;font-weight:600;letter-spacing:0.5px;">SALE</span>
+          <button style="position:absolute;top:10px;left:10px;background:#fff;border:1px solid #f0e6e6;border-radius:50%;width:28px;height:28px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">♡</button>
+        </div>
+        <div style="padding:16px;">
+          <p style="font-size:9px;color:#bbb;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;">Maybelline</p>
+          <h4 style="font-size:13px;font-weight:500;color:#1a1a2e;margin-bottom:8px;line-height:1.4;">Lip Lifter Gloss</h4>
+          <div style="display:flex;gap:2px;margin-bottom:12px;">
+            <span style="color:#e8a826;font-size:12px;">★★★★</span><span style="color:#ddd;font-size:12px;">★</span>
+            <span style="color:#ccc;font-size:11px;margin-left:4px;">(95)</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <span style="font-weight:700;color:#c0415a;font-size:15px;">$8.99</span>
+              <span style="color:#ccc;font-size:12px;text-decoration:line-through;margin-left:6px;">$11.49</span>
+            </div>
+            <button class="btn-cart" style="background:#1a1a2e;color:#fff;border:none;padding:8px 14px;font-size:10px;cursor:pointer;border-radius:4px;font-weight:500;letter-spacing:0.5px;transition:background 0.2s;">ADD TO CART</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 5 -->
+      <div class="product-card" style="border:1px solid #f0e6e6;border-radius:10px;overflow:hidden;background:#fff;transition:all 0.3s ease;cursor:pointer;">
+        <div style="height:168px;background:linear-gradient(135deg,#f8f4ff,#eee8ff);display:flex;align-items:center;justify-content:center;position:relative;">
+          <div style="display:flex;gap:8px;align-items:flex-end;">
+            <div style="width:12px;height:100px;background:linear-gradient(180deg,#9070c8,#401870);border-radius:3px 3px 0 0;"></div>
+            <div style="width:12px;height:75px;background:linear-gradient(180deg,#9070c8,#401870);border-radius:3px 3px 0 0;transform:rotate(-3deg);"></div>
+          </div>
+          <span style="position:absolute;top:10px;right:10px;background:#c0415a;color:#fff;font-size:9px;padding:3px 8px;border-radius:20px;font-weight:600;letter-spacing:0.5px;">NEW</span>
+          <button style="position:absolute;top:10px;left:10px;background:#fff;border:1px solid #f0e6e6;border-radius:50%;width:28px;height:28px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">♡</button>
+        </div>
+        <div style="padding:16px;">
+          <p style="font-size:9px;color:#bbb;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;">Maybelline</p>
+          <h4 style="font-size:13px;font-weight:500;color:#1a1a2e;margin-bottom:8px;line-height:1.4;">Vinyl Ink</h4>
+          <div style="display:flex;gap:2px;margin-bottom:12px;">
+            <span style="color:#e8a826;font-size:12px;">★★★★★</span>
+            <span style="color:#ccc;font-size:11px;margin-left:4px;">(312)</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-weight:700;color:#c0415a;font-size:15px;">$10.99</span>
+            <button class="btn-cart" style="background:#1a1a2e;color:#fff;border:none;padding:8px 14px;font-size:10px;cursor:pointer;border-radius:4px;font-weight:500;letter-spacing:0.5px;transition:background 0.2s;">ADD TO CART</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 6 -->
+      <div class="product-card" style="border:1px solid #f0e6e6;border-radius:10px;overflow:hidden;background:#fff;transition:all 0.3s ease;cursor:pointer;">
+        <div style="height:168px;background:linear-gradient(135deg,#f0faf5,#ddf0e8);display:flex;align-items:center;justify-content:center;position:relative;">
+          <div style="display:flex;gap:8px;align-items:flex-end;">
+            <div style="width:12px;height:78px;background:linear-gradient(180deg,#60c090,#205040);border-radius:3px 3px 0 0;transform:rotate(4deg);"></div>
+            <div style="width:12px;height:95px;background:linear-gradient(180deg,#60c090,#205040);border-radius:3px 3px 0 0;"></div>
+          </div>
+          <span style="position:absolute;top:10px;right:10px;background:#1a1a2e;color:#fff;font-size:9px;padding:3px 8px;border-radius:20px;font-weight:600;letter-spacing:0.5px;">ECO</span>
+          <button style="position:absolute;top:10px;left:10px;background:#fff;border:1px solid #f0e6e6;border-radius:50%;width:28px;height:28px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">♡</button>
+        </div>
+        <div style="padding:16px;">
+          <p style="font-size:9px;color:#bbb;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;">Maybelline</p>
+          <h4 style="font-size:13px;font-weight:500;color:#1a1a2e;margin-bottom:8px;line-height:1.4;">Green Edition Balm</h4>
+          <div style="display:flex;gap:2px;margin-bottom:12px;">
+            <span style="color:#e8a826;font-size:12px;">★★★★</span><span style="color:#ddd;font-size:12px;">★</span>
+            <span style="color:#ccc;font-size:11px;margin-left:4px;">(66)</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-weight:700;color:#c0415a;font-size:15px;">$7.99</span>
+            <button class="btn-cart" style="background:#1a1a2e;color:#fff;border:none;padding:8px 14px;font-size:10px;cursor:pointer;border-radius:4px;font-weight:500;letter-spacing:0.5px;transition:background 0.2s;">ADD TO CART</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 7 -->
+      <div class="product-card" style="border:1px solid #f0e6e6;border-radius:10px;overflow:hidden;background:#fff;transition:all 0.3s ease;cursor:pointer;">
+        <div style="height:168px;background:linear-gradient(135deg,#fff5f0,#fce8e0);display:flex;align-items:center;justify-content:center;position:relative;">
+          <div style="display:flex;gap:8px;align-items:flex-end;">
+            <div style="width:12px;height:88px;background:linear-gradient(180deg,#e07050,#802010);border-radius:3px 3px 0 0;"></div>
+            <div style="width:12px;height:68px;background:linear-gradient(180deg,#e07050,#802010);border-radius:3px 3px 0 0;transform:rotate(6deg);"></div>
+          </div>
+          <span style="position:absolute;top:10px;right:10px;background:#c0415a;color:#fff;font-size:9px;padding:3px 8px;border-radius:20px;font-weight:600;letter-spacing:0.5px;">NEW</span>
+          <button style="position:absolute;top:10px;left:10px;background:#fff;border:1px solid #f0e6e6;border-radius:50%;width:28px;height:28px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">♡</button>
+        </div>
+        <div style="padding:16px;">
+          <p style="font-size:9px;color:#bbb;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;">Maybelline</p>
+          <h4 style="font-size:13px;font-weight:500;color:#1a1a2e;margin-bottom:8px;line-height:1.4;">Ultimatte Slim</h4>
+          <div style="display:flex;gap:2px;margin-bottom:12px;">
+            <span style="color:#e8a826;font-size:12px;">★★★★★</span>
+            <span style="color:#ccc;font-size:11px;margin-left:4px;">(178)</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-weight:700;color:#c0415a;font-size:15px;">$13.49</span>
+            <button class="btn-cart" style="background:#1a1a2e;color:#fff;border:none;padding:8px 14px;font-size:10px;cursor:pointer;border-radius:4px;font-weight:500;letter-spacing:0.5px;transition:background 0.2s;">ADD TO CART</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 8 -->
+      <div class="product-card" style="border:1px solid #f0e6e6;border-radius:10px;overflow:hidden;background:#fff;transition:all 0.3s ease;cursor:pointer;">
+        <div style="height:168px;background:linear-gradient(135deg,#fff5f7,#fce8ed);display:flex;align-items:center;justify-content:center;position:relative;">
+          <div style="display:flex;gap:8px;align-items:flex-end;">
+            <div style="width:12px;height:82px;background:linear-gradient(180deg,#e07090,#a01850);border-radius:3px 3px 0 0;transform:rotate(-4deg);"></div>
+            <div style="width:12px;height:100px;background:linear-gradient(180deg,#e07090,#a01850);border-radius:3px 3px 0 0;"></div>
+          </div>
+          <span style="position:absolute;top:10px;right:10px;background:#22b573;color:#fff;font-size:9px;padding:3px 8px;border-radius:20px;font-weight:600;letter-spacing:0.5px;">SALE</span>
+          <button style="position:absolute;top:10px;left:10px;background:#fff;border:1px solid #f0e6e6;border-radius:50%;width:28px;height:28px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">♡</button>
+        </div>
+        <div style="padding:16px;">
+          <p style="font-size:9px;color:#bbb;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;">Maybelline</p>
+          <h4 style="font-size:13px;font-weight:500;color:#1a1a2e;margin-bottom:8px;line-height:1.4;">Lifter Plump</h4>
+          <div style="display:flex;gap:2px;margin-bottom:12px;">
+            <span style="color:#e8a826;font-size:12px;">★★★★</span><span style="color:#ddd;font-size:12px;">★</span>
+            <span style="color:#ccc;font-size:11px;margin-left:4px;">(143)</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <span style="font-weight:700;color:#c0415a;font-size:15px;">$9.99</span>
+              <span style="color:#ccc;font-size:12px;text-decoration:line-through;margin-left:6px;">$12.49</span>
+            </div>
+            <button class="btn-cart" style="background:#1a1a2e;color:#fff;border:none;padding:8px 14px;font-size:10px;cursor:pointer;border-radius:4px;font-weight:500;letter-spacing:0.5px;transition:background 0.2s;">ADD TO CART</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /grid -->
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       FEATURES STRIP
+  ═══════════════════════════════════════════════════ -->
+  <section style="background:#1a1a2e;padding:36px 48px;">
+    <div style="display:flex;justify-content:space-around;align-items:center;flex-wrap:wrap;gap:24px;">
+
+      <div style="display:flex;align-items:center;gap:18px;color:#fff;">
+        <div style="width:48px;height:48px;background:rgba(192,65,90,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;">🚀</div>
+        <div>
+          <p style="font-size:13px;font-weight:600;margin-bottom:3px;letter-spacing:0.3px;">Express Shipping</p>
+          <p style="font-size:12px;color:#888;">Ships within 24 hours</p>
+        </div>
+      </div>
+
+      <div style="width:1px;height:40px;background:rgba(255,255,255,0.08);"></div>
+
+      <div style="display:flex;align-items:center;gap:18px;color:#fff;">
+        <div style="width:48px;height:48px;background:rgba(192,65,90,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;">📦</div>
+        <div>
+          <p style="font-size:13px;font-weight:600;margin-bottom:3px;letter-spacing:0.3px;">Earning Tracking</p>
+          <p style="font-size:12px;color:#888;">Track your order live</p>
+        </div>
+      </div>
+
+      <div style="width:1px;height:40px;background:rgba(255,255,255,0.08);"></div>
+
+      <div style="display:flex;align-items:center;gap:18px;color:#fff;">
+        <div style="width:48px;height:48px;background:rgba(192,65,90,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;">↩️</div>
+        <div>
+          <p style="font-size:13px;font-weight:600;margin-bottom:3px;letter-spacing:0.3px;">Easy Returns</p>
+          <p style="font-size:12px;color:#888;">30-day return policy</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════════ -->
+  <footer style="background:#111;color:#888;padding:56px 48px 32px;">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:40px;margin-bottom:48px;">
+
+      <!-- Customer Service -->
+      <div>
+        <h4 style="font-family:'Playfair Display',serif;font-size:15px;color:#fff;margin-bottom:20px;font-weight:700;">Customer Service</h4>
+        <ul style="list-style:none;">
+          <li style="margin-bottom:10px;"><a href="#" style="color:#888;font-size:13px;transition:color 0.2s;">Contact Us</a></li>
+          <li style="margin-bottom:10px;"><a href="#" style="color:#888;font-size:13px;">Shipping Policy</a></li>
+          <li style="margin-bottom:10px;"><a href="#" style="color:#888;font-size:13px;">Returns & Exchanges</a></li>
+          <li style="margin-bottom:10px;"><a href="#" style="color:#888;font-size:13px;">FAQs</a></li>
+        </ul>
+      </div>
+
+      <!-- Information -->
+      <div>
+        <h4 style="font-family:'Playfair Display',serif;font-size:15px;color:#fff;margin-bottom:20px;font-weight:700;">Information</h4>
+        <ul style="list-style:none;">
+          <li style="margin-bottom:10px;"><a href="#" style="color:#888;font-size:13px;">About Us</a></li>
+          <li style="margin-bottom:10px;"><a href="#" style="color:#888;font-size:13px;">Blog</a></li>
+          <li style="margin-bottom:10px;"><a href="#" style="color:#888;font-size:13px;">Our Profile</a></li>
+          <li style="margin-bottom:10px;"><a href="#" style="color:#888;font-size:13px;">Company Info</a></li>
+        </ul>
+      </div>
+
+      <!-- Follow Us -->
+      <div>
+        <h4 style="font-family:'Playfair Display',serif;font-size:15px;color:#fff;margin-bottom:20px;font-weight:700;">Follow Us</h4>
+        <div style="display:flex;gap:12px;margin-bottom:16px;">
+          <a href="#" style="width:36px;height:36px;background:#222;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;">📷</a>
+          <a href="#" style="width:36px;height:36px;background:#222;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;color:#888;font-weight:700;">in</a>
+        </div>
+        <p style="font-size:12px;color:#555;line-height:1.6;">Follow us for daily beauty tips, new launches & exclusive deals.</p>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h4 style="font-family:'Playfair Display',serif;font-size:15px;color:#fff;margin-bottom:20px;font-weight:700;">Contact Us</h4>
+        <p style="font-size:13px;color:#888;margin-bottom:10px;">📍 123 Beauty Blvd, New York, NY 10001</p>
+        <p style="font-size:13px;color:#888;margin-bottom:10px;">📞 +1 800 BLUSH-BB</p>
+        <p style="font-size:13px;color:#888;margin-bottom:20px;">✉️ hello@blushberry.com</p>
+        <div style="background:#1a1a2e;border-radius:8px;padding:14px;display:flex;gap:8px;">
+          <input type="email" placeholder="Your email..." style="flex:1;background:transparent;border:none;outline:none;color:#ccc;font-size:12px;font-family:'Poppins',sans-serif;" />
+          <button style="background:#c0415a;color:#fff;border:none;padding:6px 12px;border-radius:4px;font-size:11px;cursor:pointer;font-weight:500;">GO</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer Bottom -->
+    <div style="border-top:1px solid #1e1e1e;padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+      <p style="font-size:12px;color:#444;">© 2024 BlushBerry. All rights reserved.</p>
+      <div style="display:flex;gap:6px;align-items:center;">
+        <!-- Visa -->
+        <div style="background:#1a3a8f;color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:3px;letter-spacing:1px;">VISA</div>
+        <!-- Mastercard-ish -->
+        <div style="display:flex;align-items:center;">
+          <div style="width:22px;height:22px;border-radius:50%;background:#eb001b;opacity:0.9;"></div>
+          <div style="width:22px;height:22px;border-radius:50%;background:#f79e1b;margin-left:-10px;opacity:0.9;"></div>
+        </div>
+        <!-- PayPal -->
+        <div style="background:#003087;color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:3px;letter-spacing:1px;">PayPal</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+      anchor.addEventListener('click', function(e) {
+        var target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Wishlist heart toggle
+    document.querySelectorAll('button').forEach(function(btn) {
+      if (btn.textContent.trim() === '♡') {
+        btn.addEventListener('click', function() {
+          this.textContent = this.textContent === '♡' ? '♥' : '♡';
+          this.style.color = this.textContent === '♥' ? '#c0415a' : '#888';
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

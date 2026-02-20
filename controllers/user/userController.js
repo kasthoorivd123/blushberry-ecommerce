@@ -6,5 +6,12 @@ const login =(req,res)=>{
    res.send(`${userId}`)
 };
 
+const loadHomePage = (req,res)=>{
+   try {
+      res.render('user/homePage.ejs')
+   } catch (error) {
+      console.log(`error from  loadHomePage ${error}`)
+   }
+}
 
-module.exports = {login};
+module.exports = {login,loadHomePage};
