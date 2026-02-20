@@ -1,9 +1,12 @@
 const { loadLogin } = require("../admin/adminController");
 
 
-const login =(req,res)=>{
-   const userId = req.params.id 
-   res.send(`${userId}`)
+const loadSignUp =(req,res)=>{
+   try {
+      res.render('user/userSignup.ejs')
+   } catch (error) {
+      console.log(`error from signUpPage ${error}`)
+   }
 };
 
 const loadHomePage = (req,res)=>{
@@ -14,4 +17,4 @@ const loadHomePage = (req,res)=>{
    }
 }
 
-module.exports = {login,loadHomePage};
+module.exports = {loadHomePage,loadSignUp};

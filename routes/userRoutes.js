@@ -7,7 +7,7 @@ const userController = require('../controllers/user/userController')
 
 
 userRouter.get('/',userController.loadHomePage)
-userRouter.get('/login/:id', userController.login)
+userRouter.get('/signup', userController.loadSignUp)
 
 
 module.exports = userRouter

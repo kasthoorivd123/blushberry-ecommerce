@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blush-Berry – Sign Up</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fbd0f2;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top label */
+    .top-label {
+      color: #ccc;
+      font-size: 13px;
+      padding: 14px 28px;
+      font-weight: 400;
+    }
+
+    /* Outer card */
+    .card {
+      background: #f9c8d0;
+      border-radius: 18px;
+      margin: 0 auto 40px;
+      width: 680px;
+      max-width: 95vw;
+      display: flex;
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.4);
+      min-height: 390px;
+    }
+
+    /* Left panel */
+    .left-panel {
+      width: 240px;
+      flex-shrink: 0;
+      background: linear-gradient(160deg, #f7b8c4 0%, #f5a0b5 100%);
+      padding: 28px 20px 20px 28px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-logo {
+      font-family: 'Dancing Script', cursive;
+      font-size: 36px;
+      font-weight: 800;
+      color: #1a1a2e;
+      line-height: 1.1;
+      margin-bottom: 28px;
+    }
+
+    /* Lipstick swatch rows */
+    .swatch-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 11px;
+      gap: 0;
+    }
+
+    .swatch-label {
+      background: #e88;
+      color: #fff;
+      font-size: 7.5px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 4px 6px;
+      border-radius: 3px;
+      min-width: 46px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .swatch-brush {
+      width: 10px;
+      height: 10px;
+      border-radius: 50% 50% 40% 40%;
+      margin-left: 4px;
+      flex-shrink: 0;
+    }
+
+    .swatch-stroke {
+      height: 14px;
+      border-radius: 0 6px 6px 0;
+      flex: 1;
+      margin-left: 0;
+    }
+
+    /* Right panel */
+    .right-panel {
+      flex: 1;
+      background: #fff;
+      border-radius: 12px;
+      margin: 12px 12px 12px 0;
+      padding: 28px 36px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lang {
+      position: absolute;
+      top: 18px;
+      right: 24px;
+      font-size: 11px;
+      color: #aaa;
+      font-weight: 400;
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #1a1a2e;
+      margin-bottom: 20px;
+    }
+
+    /* Social buttons */
+    .social-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .btn-social {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid #e8e8e8;
+      border-radius: 6px;
+      padding: 9px 10px;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: #444;
+      background: #fff;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      transition: background 0.2s, border-color 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-social:hover {
+      background: #fafafa;
+      border-color: #ccc;
+    }
+
+    .or-divider {
+      text-align: center;
+      font-size: 12px;
+      color: #bbb;
+      margin: 4px 0 14px;
+      position: relative;
+    }
+
+    .or-divider::before,
+    .or-divider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 38%;
+      height: 1px;
+      background: #eee;
+    }
+    .or-divider::before { left: 0; }
+    .or-divider::after  { right: 0; }
+
+    /* Inputs */
+    .input-wrap {
+      position: relative;
+      margin-bottom: 0;
+    }
+
+    .input-field {
+      width: 100%;
+      border: none;
+      border-bottom: 1.5px solid #e0e0e0;
+      outline: none;
+      padding: 10px 36px 10px 0;
+      font-size: 13px;
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      background: transparent;
+      transition: border-color 0.2s;
+    }
+
+    .input-field::placeholder { color: #bbb; font-size: 12.5px; }
+    .input-field:focus { border-bottom-color: #e07090; }
+
+    .input-divider {
+      border: none;
+      border-top: 1.5px solid #f0f0f0;
+      margin: 0;
+    }
+
+    .eye-icon {
+      position: absolute;
+      right: 4px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #ccc;
+      font-size: 15px;
+      user-select: none;
+      line-height: 1;
+    }
+
+    /* Submit button */
+    .btn-create {
+      width: 100%;
+      background: #e8808a;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 13px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      margin-top: 20px;
+      transition: background 0.2s;
+    }
+
+    .btn-create:hover { background: #d46070; }
+
+    .login-link {
+      text-align: center;
+      font-size: 12px;
+      color: #aaa;
+      margin-top: 14px;
+    }
+
+    .login-link a {
+      color: #e07090;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .login-link a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <p class="top-label">Sign up</p>
+
+  <div class="card">
+
+    <!-- ── LEFT PANEL ── -->
+    <div class="left-panel">
+      <div class="brand-logo">Blush-Berry</div>
+
+      <!-- Swatch 1: Dark burgundy -->
+      <div class="swatch-row">
+        <div class="swatch-label" style="background:#c8606a;">BEAUTY</div>
+        <div class="swatch-brush" style="background:#8b2030;"></div>
+        <div class="swatch-stroke" style="background:linear-gradient(90deg,#6a1020,#a02030,#c85060,#b03040);"></div>
+      </div>
+
+      <!-- Swatch 2: Mauve -->
+      <div class="swatch-row">
+        <div class="swatch-label" style="background:#d08090;">BEAUTY</div>
+        <div class="swatch-brush" style="background:#9a5060;"></div>
+        <div class="swatch-stroke" style="background:linear-gradient(90deg,#8a4050,#b07080,#d0a0a8,#c09090);"></div>
+      </div>
+
+      <!-- Swatch 3: Nude brown -->
+      <div class="swatch-row">
+        <div class="swatch-label" style="background:#c89070;">BEAUTY</div>
+        <div class="swatch-brush" style="background:#8a5030;"></div>
+        <div class="swatch-stroke" style="background:linear-gradient(90deg,#7a4020,#a87050,#d0a080,#c09060);"></div>
+      </div>
+
+      <!-- Swatch 4: Warm terracotta -->
+      <div class="swatch-row">
+        <div class="swatch-label" style="background:#d07060;">BEAUTY</div>
+        <div class="swatch-brush" style="background:#a84030;"></div>
+        <div class="swatch-stroke" style="background:linear-gradient(90deg,#902010,#c06050,#e09080,#d07060);"></div>
+      </div>
+
+      <!-- Swatch 5: Red -->
+      <div class="swatch-row">
+        <div class="swatch-label" style="background:#e04050;">BEAUTY</div>
+        <div class="swatch-brush" style="background:#a01020;"></div>
+        <div class="swatch-stroke" style="background:linear-gradient(90deg,#800010,#c02030,#e85060,#d03040);"></div>
+      </div>
+
+      <!-- Swatch 6: Soft pink -->
+      <div class="swatch-row">
+        <div class="swatch-label" style="background:#e8a0b0;">BEAUTY</div>
+        <div class="swatch-brush" style="background:#c07080;"></div>
+        <div class="swatch-stroke" style="background:linear-gradient(90deg,#b06070,#d090a0,#f0c0cc,#e8b0bc);"></div>
+      </div>
+
+    </div><!-- /left-panel -->
+
+    <!-- ── RIGHT PANEL ── -->
+    <div class="right-panel">
+
+      <span class="lang">English (UK)</span>
+
+      <h2 class="title">Create Account</h2>
+
+      <!-- Social Buttons -->
+      <div class="social-row">
+        <a href="#" class="btn-social">
+          <!-- Google G -->
+          <svg width="16" height="16" viewBox="0 0 24 24">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+          </svg>
+          Sign up with Google
+        </a>
+        <a href="#" class="btn-social">
+          <!-- Facebook f -->
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#1877F2">
+            <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.532-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.514c-1.491 0-1.956.93-1.956 1.886v2.273h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+          </svg>
+          Sign up with Facebook
+        </a>
+      </div>
+
+      <div class="or-divider">– OR –</div>
+
+      <!-- Form -->
+      <form action="/signup" method="POST">
+
+        <div class="input-wrap">
+          <input type="text" name="fullname" placeholder="Full Name" class="input-field" required />
+        </div>
+        <hr class="input-divider" />
+
+        <div class="input-wrap">
+          <input type="email" name="email" placeholder="Email Address" class="input-field" required />
+        </div>
+        <hr class="input-divider" />
+
+        <div class="input-wrap">
+          <input type="password" name="password" id="pw1" placeholder="Password" class="input-field" required />
+          <span class="eye-icon" onclick="togglePw('pw1', this)" title="Show/Hide">
+            <svg width="17" height="17" fill="none" stroke="#ccc" stroke-width="1.8" viewBox="0 0 24 24">
+              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+              <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+              <line x1="1" y1="1" x2="23" y2="23"/>
+            </svg>
+          </span>
+        </div>
+        <hr class="input-divider" />
+
+        <div class="input-wrap">
+          <input type="password" name="confirmPassword" id="pw2" placeholder="Confirm Password" class="input-field" required />
+          <span class="eye-icon" onclick="togglePw('pw2', this)" title="Show/Hide">
+            <svg width="17" height="17" fill="none" stroke="#ccc" stroke-width="1.8" viewBox="0 0 24 24">
+              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+              <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+              <line x1="1" y1="1" x2="23" y2="23"/>
+            </svg>
+          </span>
+        </div>
+
+        <button type="submit" class="btn-create">Create Account</button>
+
+      </form>
+
+      <p class="login-link">Already have an account? <a href="/login">Log in</a></p>
+
+    </div><!-- /right-panel -->
+
+  </div><!-- /card -->
+
+  <script>
+    function togglePw(id, icon) {
+      var input = document.getElementById(id);
+      var isHidden = input.type === 'password';
+      input.type = isHidden ? 'text' : 'password';
+      // swap to open/closed eye
+      icon.innerHTML = isHidden
+        ? '<svg width="17" height="17" fill="none" stroke="#e07090" stroke-width="1.8" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>'
+        : '<svg width="17" height="17" fill="none" stroke="#ccc" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
+    }
+  </script>
+
+</body>
+</html>
