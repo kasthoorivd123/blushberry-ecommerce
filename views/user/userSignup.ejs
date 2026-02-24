@@ -10,7 +10,7 @@
 
     body {
       font-family: 'Poppins', sans-serif;
-      background: #fbd0f2;
+      background: #faf4f8;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -248,7 +248,7 @@
   </style>
 </head>
 <body>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <p class="top-label">Sign up</p>
 
   <div class="card">
@@ -332,10 +332,10 @@
       <div class="or-divider">– OR –</div>
 
       <!-- Form -->
-      <form action="/signup" method="POST">
+      <form id="signupForm">
 
         <div class="input-wrap">
-          <input type="text" name="fullname" placeholder="Full Name" class="input-field" required />
+          <input type="text" name="fullName" placeholder="Full Name" class="input-field" required />
         </div>
         <hr class="input-divider" />
 
@@ -367,7 +367,7 @@
           </span>
         </div>
 
-        <button type="submit" class="btn-create">Create Account</button>
+        <button  class="btn-create">Create Account</button>
 
       </form>
 
@@ -377,17 +377,63 @@
 
   </div><!-- /card -->
 
-  <script>
-    function togglePw(id, icon) {
-      var input = document.getElementById(id);
-      var isHidden = input.type === 'password';
-      input.type = isHidden ? 'text' : 'password';
-      // swap to open/closed eye
-      icon.innerHTML = isHidden
-        ? '<svg width="17" height="17" fill="none" stroke="#e07090" stroke-width="1.8" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>'
-        : '<svg width="17" height="17" fill="none" stroke="#ccc" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
-    }
-  </script>
 
+
+<script>
+document.getElementById("signupForm").addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const fullName = document.querySelector('[name="fullName"]').value;
+    const email = document.querySelector('[name="email"]').value;
+    const password = document.querySelector('[name="password"]').value;
+    const confirmPassword = document.querySelector('[name="confirmPassword"]').value;
+
+    if (password !== confirmPassword) {
+        return Swal.fire({
+            icon: "error",
+            title: "Passwords do not match ❌",
+        });
+    }
+
+    try {
+        Swal.fire({
+            title: "Creating account...",
+            allowOutsideClick: false,
+            didOpen: () => Swal.showLoading()
+        });
+
+        const response = await fetch("/signup", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ fullName, email, password, confirmPassword })
+        });
+
+        const result = await response.json();
+        Swal.close();
+
+        if (result.success) {
+            await Swal.fire({
+                icon: "success",
+                title: "Account Created 🎉",
+                timer: 1500,
+                showConfirmButton: false
+            });
+            window.location.href = "/login";
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Signup Failed ❌",
+                text: result.message
+            });
+        }
+
+    } catch (error) {
+        Swal.fire({
+            icon: "warning",
+            title: "Server Error ⚠"
+        });
+    }
+});
+</script>
 </body>
 </html>
