@@ -1,6 +1,8 @@
 const  express = require('express')
-const app = express()
+const app = express() 
 require('dotenv').config();
+const morgan = require('morgan')
+
 
 
 const path = require('path') 
@@ -8,12 +10,12 @@ const nocache = require('nocache')
 const session = require('express-session')
 
 const connectDb = require('./config/connectDb')
+app.use(morgan('dev'))
 
 const userRouter = require('./routes/userRoutes')
 const adminRouter = require('./routes/adminRoutes')
 
 connectDb()
-
 
 
 app.use(express.json())

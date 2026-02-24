@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blush-Berry | Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f0f0f1;
+      font-family: 'Raleway', sans-serif;
+    }
+    .container {
+      display: flex;
+      width: 900px;
+      min-height: 580px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    }
+    /* Left: Image */
+    .image-side {
+      flex: 1;
+      background: url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&q=80') center/cover no-repeat;
+      position: relative;
+    }
+    .image-side::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(253,232,239,0.18) 0%, rgba(22,26,48,0.22) 100%);
+    }
+    .image-overlay-text {
+      position: absolute;
+      bottom: 36px;
+      left: 32px;
+      z-index: 2;
+      color: #fff;
+    }
+    .image-overlay-text h2 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 32px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+    }
+    .image-overlay-text p {
+      font-size: 13px;
+      opacity: 0.85;
+      margin-top: 4px;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.3);
+    }
+    /* Right: Form */
+    .form-side {
+      flex: 1;
+      background: #FDE8EF;
+      padding: 50px 45px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo {
+      font-family: 'Dancing Script', cursive;
+      font-size: 44px;
+      color: #2d2d2d;
+      margin-bottom: 4px;
+      letter-spacing: -1px;
+    }
+    .logo span { color: #E8527A; }
+    .user-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #E8527A;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+    .subtitle {
+      font-size: 13px;
+      color: #999;
+      margin-bottom: 28px;
+      text-align: center;
+    }
+    .input-group {
+      width: 100%;
+      position: relative;
+      margin-bottom: 14px;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 13px 18px 13px 44px;
+      border: none;
+      border-radius: 10px;
+      background: #fff;
+      font-family: 'Raleway', sans-serif;
+      font-size: 14px;
+      color: #333;
+      outline: none;
+      box-shadow: 0 2px 8px rgba(232,82,122,0.08);
+      transition: box-shadow 0.2s;
+    }
+    .input-group input:focus {
+      box-shadow: 0 2px 16px rgba(232,82,122,0.25);
+    }
+    .input-group input::placeholder { color: #bbb; }
+    .input-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+    .forgot {
+      align-self: flex-end;
+      font-size: 12px;
+      color: #E8527A;
+      text-decoration: none;
+      margin-bottom: 18px;
+      margin-top: -6px;
+      font-weight: 600;
+      transition: opacity 0.15s;
+    }
+    .forgot:hover { opacity: 0.7; }
+    .btn-login {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #F06292, #E8527A);
+      color: #fff;
+      font-family: 'Raleway', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 24px rgba(232,82,122,0.35);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(232,82,122,0.45);
+    }
+    .or-divider {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      gap: 12px;
+      margin-bottom: 16px;
+      color: #bbb;
+      font-size: 13px;
+    }
+    .or-divider::before, .or-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e0c8d0;
+    }
+    .social-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 18px;
+      border-radius: 10px;
+      border: 1.5px solid #f0dde3;
+      background: #fff;
+      cursor: pointer;
+      font-family: 'Raleway', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #444;
+      margin-bottom: 10px;
+      transition: background 0.15s, box-shadow 0.15s;
+      text-decoration: none;
+    }
+    .social-btn:hover { background: #fef0f4; box-shadow: 0 4px 12px rgba(232,82,122,0.12); }
+    .social-btn img { width: 20px; height: 20px; }
+    .register-link {
+      margin-top: 18px;
+      font-size: 13px;
+      color: #999;
+    }
+    .register-link a {
+      color: #E8527A;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .register-link a:hover { text-decoration: underline; }
+
+    @media (max-width: 700px) {
+      .container { flex-direction: column; width: 95vw; }
+      .image-side { height: 200px; }
+    }
+  </style>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <div class="container">
+    <!-- Left: Image -->
+    <div class="image-side">
+      <div class="image-overlay-text">
+        <h2>Blush-Berry</h2>
+        <p>Your perfect shade, delivered.</p>
+      </div>
+    </div>
+
+    <!-- Right: Form -->
+    <div class="form-side">
+      <div class="logo">Blush<span>-Berry</span></div>
+      <div class="user-title">WELCOME BACK</div>
+      <p class="subtitle">Sign in to your account to continue shopping</p>
+
+<form id="loginForm" style="width:100%;">
+
+  <div class="input-group">
+    <input type="email" id="email" name="email" placeholder="Email address" required />
+  </div>
+
+  <div class="input-group">
+    <input type="password" id="password" name="password" placeholder="Password" required />
+  </div>
+
+  <button type="submit" class="btn-login">Login Now</button>
+
+</form>
+
+<div class="or-divider"><span>Or continue with</span></div>
+
+<a href="#" class="social-btn">
+        <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google"/>
+        Login with Google
+      </a>
+      <a href="#" class="social-btn">
+        <img src="https://www.svgrepo.com/show/448224/facebook.svg" alt="Facebook"/>
+        Login with Facebook
+      </a>
+
+      <p class="register-link">Don't have an account? <a href="/signup">Sign Up</a></p>
+    </div>
+    
+  </div>
+        <script>
+document.getElementById("loginForm").addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    try {
+        const response = await fetch("/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email, password })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+
+            await Swal.fire({
+                icon: 'success',
+                title: 'Login Successful 🎉',
+                text: 'Redirecting to home...',
+                timer: 1500,
+                showConfirmButton: false
+            });
+
+            window.location.href = "/";
+
+        } else {
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Login Failed ❌',
+                text: result.message,
+                confirmButtonColor: '#d33'
+            });
+
+        }
+
+    } catch (error) {
+        console.error("Error:", error);
+
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops!',
+            text: 'Something went wrong. Please try again.',
+            confirmButtonColor: '#3085d6'
+        });
+    }
+});
+</script>
+  
+</body>
+</html>
