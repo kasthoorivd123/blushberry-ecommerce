@@ -27,8 +27,8 @@ const signup = async (req, res) => {
 
       if (password !== confirmPassword) {
          return res.json({
-            success:false,
-            message : 'password do not match'
+            success: false,
+            message: 'password do not match'
          })
       }
 
@@ -36,101 +36,101 @@ const signup = async (req, res) => {
 
       if (existingUser) {
          return res.json({
-            success:false,
-            message:'user already exists'
+            success: false,
+            message: 'user already exists'
          })
       }
-   
+
 
       const otp = generateOtp()
-   
+
       await Otp.deleteMany({ email });
-      
+
       //save otp in db
       await Otp.create({
          email,
          otp
       })
-       
-     req.session.tempUser = {
-      fullName,
-      email,
-      password
-     }
 
-      
-   await sendEmail(email,otp)
+      req.session.tempUser = {
+         fullName,
+         email,
+         password
+      }
 
-return res.json({
-   success: true,
-   redirectUrl: "/otp"
-});
+
+      await sendEmail(email, otp)
+
+      return res.json({
+         success: true,
+         redirectUrl: "/otp"
+      });
 
    }
    catch (error) {
       console.log(error);
       return res.status(500).json({
-         succecc:false,
-         message:'Server error'
+         succecc: false,
+         message: 'Server error'
       })
    }
 };
 
 
-const verifyOtp = async (req,res) =>{
-  try {
-   const { otp } = req.body;
-   const tempUser = req.session.tempUser;
+const verifyOtp = async (req, res) => {
+   try {
+      const { otp } = req.body;
+      const tempUser = req.session.tempUser;
 
-   if(!tempUser){
-     return res.json({
-      success: false,
-      message: "Session expired. Please signup again."
-     });
-   }
+      if (!tempUser) {
+         return res.json({
+            success: false,
+            message: "Session expired. Please signup again."
+         });
+      }
 
-   const otpRecord = await Otp.findOne({ email : tempUser.email });
+      const otpRecord = await Otp.findOne({ email: tempUser.email });
 
-   if(!otpRecord){
-      return res.json({
-         success : false,
-         message:"OTP expired ,please resend otp "
+      if (!otpRecord) {
+         return res.json({
+            success: false,
+            message: "OTP expired ,please resend otp "
+         });
+      }
+
+      if (otpRecord.otp.toString() !== otp.toString()) {
+         return res.json({
+            success: false,
+            message: "Invalid Otp"
+         });
+      }
+
+      const hashedPassword = await bcrypt.hash(tempUser.password, 10);
+
+      console.log("Before creating user");
+
+      const newUser = await User.create({
+         fullName: tempUser.fullName,
+         email: tempUser.email,
+         password: hashedPassword,
+         isVerified: true
+      });
+
+      console.log("User Saved Successfully:", newUser);
+
+      await Otp.deleteOne({ email: tempUser.email });
+      req.session.tempUser = null;
+
+      return res.json({ success: true });
+
+   } catch (error) {
+      console.log(" VERIFY OTP ERROR FULL:");
+      console.log(error);   // VERY IMPORTANT
+      return res.status(500).json({
+         success: false,
+         message: error.message
       });
    }
-
-   if(otpRecord.otp.toString() !== otp.toString()){
-      return res.json({
-         success:false,
-         message:"Invalid Otp"
-      });
-   }
-
-   const hashedPassword = await bcrypt.hash(tempUser.password,10);
-
-   console.log("Before creating user");
-
-   const newUser = await User.create({
-      fullName : tempUser.fullName,
-      email : tempUser.email,
-      password : hashedPassword,
-      isVerified : true
-   });
-
-   console.log("User Saved Successfully:", newUser);
-
-   await Otp.deleteOne({email:tempUser.email});
-   req.session.tempUser = null;
-
-   return res.json({ success: true });
-
-  } catch (error) {
-    console.log(" VERIFY OTP ERROR FULL:");
-    console.log(error);   // VERY IMPORTANT
-    return res.status(500).json({
-      success:false,
-      message:error.message
-    });
-  }
 }
 
 const resendOtp = async (req, res) => {
@@ -183,7 +183,6 @@ const loadLogin = (req, res) => {
    }
 }
 
-
 // Login function
 
 const login = async (req, res) => {
@@ -209,11 +208,11 @@ const login = async (req, res) => {
       }
 
       if (!user.isVerified) {
-   return res.json({
-      success: false,
-      message: "Please verify your email first"
-   });
-}
+         return res.json({
+            success: false,
+            message: "Please verify your email first"
+         });
+      }
       // Save session
       req.session.user = {
          id: user._id,
@@ -234,9 +233,9 @@ const login = async (req, res) => {
    }
 };
 
-const logout = (req,res) =>{
-   req.session.destroy((err)=>{
-      if(err) {
+const logout = (req, res) => {
+   req.session.destroy((err) => {
+      if (err) {
          console.log(err)
       }
       res.clearCookie('connect.sid')
@@ -244,7 +243,7 @@ const logout = (req,res) =>{
    })
 }
 
-const loadOtpPage = (req,res) =>{
+const loadOtpPage = (req, res) => {
    res.render('user/otpPage.ejs')
 }
 
