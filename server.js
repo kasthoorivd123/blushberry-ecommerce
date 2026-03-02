@@ -2,12 +2,12 @@ const  express = require('express')
 const app = express() 
 require('dotenv').config();
 const morgan = require('morgan')
-
+const session = require('express-session')
+const MongoStore = require('connect-mongo');
 
 
 const path = require('path') 
 const nocache = require('nocache')
-const session = require('express-session')
 
 const connectDb = require('./config/connectDb')
 app.use(morgan('dev'))
@@ -25,24 +25,16 @@ app.use(express.static(path.join(__dirname,'public')))
 
 app.use(nocache())
 
-app.use(session({
-    
-    secret: 'kasthoori',
-    
-    resave: false,
-    
-    saveUninitialized: false,
-    
-    cookie: {
-        
-        secure: false, // true only in production with https
-        
-        httpOnly: true,
-        
-        maxAge: 72 * 60 * 60 * 1000
-        
-    }
-    
+ app.use(session({
+  secret: "yourSecretKey",
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGO_URI
+  }),
+  cookie: {
+    maxAge: 1000 * 60 * 60
+  }
 }));
 
 app.set('view engine','ejs')
