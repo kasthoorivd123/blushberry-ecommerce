@@ -6,10 +6,7 @@ const generateOtp = require('../../utils/generateOtp');
 const sendEmail = require("../../utils/sendEmail");
 const passport = require('../../config/passport');
 
-// Load home page
-// const loadHomePage = (req, res) => {
-//    res.render("user/homePage.ejs");
-// };
+
 const loadHomePage = async (req, res) => {
   try {
     let user = null;
@@ -61,7 +58,7 @@ const signup = async (req, res) => {
       // req.session.otpExpiresAt = expiresAt;
 
       await sendEmail(email, otp);
-      req.session.otpType="signup"
+      
       
       return res.json({
          success: true,
@@ -208,26 +205,15 @@ const loadLogin = (req, res) => {
    }
 };
 
-// Login function
-// const login = (req, res, next) => {
-//    console.log('hello i');
-   
-//   passport.authenticate("local", (err, user, info) => {
-//     if (err) return next(err);
-//     if (!user) return res.json({ success: false, message: info?.message || "Invalid credentials" });
 
-//     req.login(user, (err) => {
-//       if (err) return next(err);
-//       return res.json({ success: true });
-//     });
-//   })(req, res, next);
-// };
 
 const login = async(req,res,next) =>{
    try {
+     
+      
       const {email,password} = req.body;
       const user = await User.findOne({email});
-      console.log('user pass word====================================',user.password);
+     
       
       if(!user) return res.json(401).json({message:'User not found'})
 
@@ -235,7 +221,8 @@ const login = async(req,res,next) =>{
          if(!isMatch) return res.status(401).json({message:'Invalid password'})
           req.logIn(user,(err)=>{
          if(err) return next(err)
-
+          req.session.userId = user._id;
+        
             return res.json({success:true,message:'Logged in successfully'})
 
          })  
@@ -327,10 +314,7 @@ const resetPassword = async (req, res) => {
    }
 };
 
-// Load OTP page (generic)
-// const loadOtpPage = (req, res) => {
-//    res.render('user/otpPage.ejs');
-// };
+
 
 const loadOtpPage = async (req, res) => {
    try {

@@ -9,9 +9,9 @@ const userController = require('../controllers/user/userAuthController')
 const {isLoggedIn,isLoggedOut} = require('../middleware/authMiddleware')
 
 
-userRouter.get('/',isLoggedIn,userController.loadHomePage)
+userRouter.get('/',userController.loadHomePage)
 
-userRouter.get('/signup', isLoggedOut,userController.loadSignUp)
+userRouter.get('/signup',userController.loadSignUp)
 // userRouter.get('/login',isLoggedOut,userController.loadLogin) 
 userRouter.get('/login',userController.loadLogin) 
 userRouter.post('/login',userController.login);
