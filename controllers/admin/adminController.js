@@ -1,60 +1,71 @@
 const User = require('../../models/user/userModel')
 const bcrypt = require('bcrypt')
-const { loadLogin } = require('../user/userAuthController')
 
-
-const loadAdminLogin = (req,res) =>{
-     res.render('admin/adminLogin.ejs')
+const loadAdminLogin = (req, res) => {
+    res.render('admin/adminLogin.ejs')
 }
 
-
-const loadDashboard = (req,res) =>{
-    res.render('admin/dashboard.ejs')
+const loadDashboard = async (req, res) => {
+   res.render('admin/dashboard')
 }
 
-const adminLogin = async (req,res) =>{
+const adminLogin = async (req, res) => {
     try {
-        const {email,password} = req.body;
+        const { email, password } = req.body;
 
-        const user = await User.findOne({email});
+        const user = await User.findOne({ email });
 
-        if(!user){
-            return res.json({
-                success:false,
-                message:"admin not found"
-            })
+        if (!user) {
+            return res.json({ success: false, message: "Admin not found" })
         }
 
-        if(!user.isAdmin) {
-            return res.json({
-                success:false,
-                message:'you are not authorised as Admin'
-            })
+        if (!user.isAdmin) {
+            return res.json({ success: false, message: 'You are not authorised as Admin' })
         }
-        const isMatch = await bcyrpt.compare(password,user.password)
-      if (!isMatch) {
-        return res.json({
-            success:false,
-            message:'Incorrect password'
+
+        const isMatch = await bcrypt.compare(password, user.password)
+
+        if (!isMatch) {
+            return res.json({ success: false, message: 'Incorrect password' })
+        }
+
+        req.session.admin = user._id;
+        req.session.save((err) => {
+            if (err) {
+                console.log("Session save error", err);
+                return res.status(500).json({ success: false, message: "Session error" })
+            }
+            return res.json({
+                success: true,
+                redirectUrl: '/admin/dashboard'
+            })
         })
-      }
 
-      req.session.admin = user._id;
-
-
-      res.json({
-        success:true
-      })
     } catch (error) {
-        console.log("Admin login error",error)
-        res.status(500).json({
-            success:false,
-            message:"server error"
-        })
+        console.log("Admin login error", error)
+        res.status(500).json({ success: false, message: "Server error" })
     }
 }
+
+const adminLogout = async (req, res) => {
+  try {
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("adminLogout error:", err);
+        return res.redirect("/admin/dashboard");
+      }
+      res.clearCookie("connect.sid"); // clear session cookie
+      return res.redirect("/admin/login");
+    });
+  } catch (error) {
+    console.error("adminLogout error:", error);
+    return res.redirect("/admin/dashboard");
+  }
+};
+
 module.exports = {
-   loadAdminLogin,
-   loadDashboard,
-   adminLogin
+    loadAdminLogin,
+    loadDashboard,
+    adminLogin,
+    adminLogout
 }

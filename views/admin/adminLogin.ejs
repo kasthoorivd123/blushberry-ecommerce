@@ -292,10 +292,7 @@
         <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google">
         Login with Google
       </button>
-      <button class="social-btn" onclick="socialLogin('Facebook')">
-        <img src="https://www.svgrepo.com/show/475647/facebook-color.svg" alt="Facebook">
-        Login with Facebook
-      </button>
+      
     </div>
 
     <div class="panel-right"></div>
@@ -305,7 +302,71 @@
 <div class="toast" id="toast"></div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-document.getElementById('loginForm').addEventListener('submit', async (e) => {
+  const emailInput    = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
+  const loginBtn      = document.getElementById('loginBtn');
+
+  function validateEmail() {
+    const val = emailInput.value.trim();
+    const err = document.getElementById('emailErr');
+    if (!val) { showErr(emailInput, err, 'Email is required'); return false; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) { showErr(emailInput, err, 'Enter a valid email'); return false; }
+    clearErr(emailInput, err); return true;
+  }
+
+  function validatePassword() {
+    const val = passwordInput.value;
+    const err = document.getElementById('passwordErr');
+    if (!val) { showErr(passwordInput, err, 'Password is required'); return false; }
+    if (val.length < 4) { showErr(passwordInput, err, 'Password too short'); return false; }
+    clearErr(passwordInput, err); return true;
+  }
+
+  function showErr(input, el, msg) {
+    input.classList.add('invalid'); input.classList.remove('valid');
+    el.textContent = msg; el.classList.add('show');
+  }
+  function clearErr(input, el) {
+    input.classList.remove('invalid'); input.classList.add('valid');
+    el.classList.remove('show');
+  }
+
+  // document.getElementById('togglePw').addEventListener('click', () => {
+  //   const pw = document.getElementById('password');
+  //   pw.type = pw.type === 'password' ? 'text' : 'password';
+  // });
+
+  // function socialLogin(provider) {
+  //   Swal.fire({
+  //     icon: 'info',
+  //     title: `${provider} Login`,
+  //     text: `${provider} login is not configured yet.`,
+  //     confirmButtonColor: '#e8527a'
+  //   });
+  // }
+
+  // document.getElementById('loginForm').addEventListener('submit', async (e) => {
+  //   e.preventDefault();
+
+  //   const okEmail = validateEmail();
+  //   const okPass  = validatePassword();
+  //   if (!okEmail || !okPass) return;
+
+  //   loginBtn.classList.add('loading');
+  //   loginBtn.disabled = true;
+
+  //   // Show success and redirect directly to /admin/dashboard
+  //   await Swal.fire({
+  //     icon: 'success',
+  //     title: 'Login Successful 🎉',
+  //     text: 'Redirecting to dashboard...',
+  //     timer: 1500,
+  //     showConfirmButton: false
+  //   });
+
+  //   window.location.href = '/admin/dashboard';
+  // });
+  document.getElementById('loginForm').addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const okEmail = validateEmail();
@@ -316,12 +377,9 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
   loginBtn.disabled = true;
 
   try {
-
     const res = await fetch('/admin/login', {
       method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         email: emailInput.value.trim(),
         password: passwordInput.value
@@ -331,7 +389,6 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     const data = await res.json();
 
     if (data.success) {
-
       await Swal.fire({
         icon: 'success',
         title: 'Login Successful 🎉',
@@ -339,27 +396,24 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
         timer: 1500,
         showConfirmButton: false
       });
-
-      window.location.href = '/admin/dashboard';
+      window.location.href = data.redirectUrl;
 
     } else {
-
       Swal.fire({
         icon: 'error',
         title: 'Login Failed',
-        text: data.message || 'Invalid credentials'
+        text: data.message || 'Invalid credentials',
+        confirmButtonColor: '#e8527a'
       });
-
     }
 
   } catch (err) {
-
     Swal.fire({
       icon: 'error',
       title: 'Server Error',
-      text: 'Something went wrong. Please try again.'
+      text: 'Something went wrong. Please try again.',
+      confirmButtonColor: '#e8527a'
     });
-
     console.error('[Admin Login Error]', err);
 
   } finally {

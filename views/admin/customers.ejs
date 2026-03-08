@@ -1,0 +1,466 @@
+<!-- customers.ejs — include sidebar/header outside this file -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap');
+
+  .customers-wrap {
+    font-family: 'Nunito', sans-serif;
+    padding: 10px 4px 60px;
+  }
+
+  /* Page heading */
+  .page-heading {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #3a1a2e;
+    margin-bottom: 20px;
+  }
+
+  /* Controls bar */
+  .controls-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .ctrl-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #b07090;
+    letter-spacing: 0.5px;
+  }
+
+  .ctrl-select {
+    background: #fff;
+    border: 1.5px solid #f4a7bc;
+    border-radius: 8px;
+    padding: 6px 28px 6px 10px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #3a1a2e;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23b07090'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 9px center;
+    transition: border-color 0.2s;
+  }
+  .ctrl-select:focus { border-color: #e8527a; }
+
+  .ctrl-input {
+    background: #fff;
+    border: 1.5px solid #f4a7bc;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 12px;
+    color: #3a1a2e;
+    outline: none;
+    width: 140px;
+    transition: border-color 0.2s;
+  }
+  .ctrl-input:focus { border-color: #e8527a; }
+  .ctrl-input::placeholder { color: #c0a0b0; }
+
+  /* Table card */
+  .table-card {
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(200,80,120,0.10);
+  }
+
+  .customers-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .customers-table thead tr {
+    background: linear-gradient(135deg, #e8527a, #c93060);
+  }
+
+  .customers-table thead th {
+    padding: 13px 16px;
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #fff;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .customers-table thead th:first-child { border-radius: 0; width: 60px; text-align: center; }
+
+  .customers-table tbody tr {
+    border-bottom: 1px solid #fde8f0;
+    transition: background 0.15s;
+    animation: rowIn 0.3s ease both;
+  }
+
+  @keyframes rowIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .customers-table tbody tr:nth-child(even) { background: #fff8fb; }
+  .customers-table tbody tr:hover { background: #fde8f0; }
+  .customers-table tbody tr:last-child { border-bottom: none; }
+
+  .customers-table tbody td {
+    padding: 11px 16px;
+    font-size: 13px;
+    color: #3a1a2e;
+    font-weight: 600;
+    vertical-align: middle;
+  }
+
+  .customers-table tbody td:first-child {
+    text-align: center;
+    font-weight: 700;
+    color: #b07090;
+    font-size: 12px;
+  }
+
+  /* Toggle switch */
+  .toggle {
+    position: relative;
+    display: inline-block;
+    width: 36px;
+    height: 20px;
+  }
+  .toggle input { display: none; }
+  .toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: #e0c0cc;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.25s;
+  }
+  .toggle-slider::before {
+    content: '';
+    position: absolute;
+    width: 14px; height: 14px;
+    left: 3px; top: 3px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.25s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+  .toggle input:checked + .toggle-slider { background: #e8527a; }
+  .toggle input:checked + .toggle-slider::before { transform: translateX(16px); }
+
+  /* Action buttons */
+  .action-btns { display: flex; gap: 7px; align-items: center; }
+
+  .btn-edit, .btn-block {
+    width: 30px; height: 30px;
+    border: none; border-radius: 8px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-edit {
+    background: #e8f5e9;
+    color: #4caf6e;
+  }
+  .btn-edit:hover {
+    background: #4caf6e;
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(76,175,110,0.3);
+  }
+  .btn-block {
+    background: #fde8ee;
+    color: #e8527a;
+  }
+  .btn-block:hover {
+    background: #e8527a;
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(232,82,122,0.3);
+  }
+
+  /* Status badge */
+  .badge-active, .badge-blocked {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .badge-active  { background: #e8f5e9; color: #4caf6e; }
+  .badge-blocked { background: #fde8ee; color: #e8527a; }
+
+  /* Pagination */
+  .pagination-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    padding: 14px 20px;
+    border-top: 1px solid #fde8f0;
+    background: #fff8fb;
+  }
+
+  .page-info {
+    font-size: 11.5px;
+    color: #b07090;
+    font-weight: 600;
+    margin-right: 6px;
+  }
+
+  .btn-page {
+    width: 28px; height: 28px;
+    border: 1.5px solid #f4a7bc;
+    background: #fff;
+    border-radius: 7px;
+    font-size: 13px;
+    color: #c93060;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    transition: all 0.2s;
+  }
+  .btn-page:hover, .btn-page.active {
+    background: linear-gradient(135deg, #e8527a, #c93060);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(200,48,96,0.3);
+  }
+  .btn-page:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+</style>
+<%- include('../partials/admin/adminSidebar') %>
+<div class="customers-wrap">
+
+  <div class="page-heading">Customers</div>
+
+  <!-- Controls -->
+  <div class="controls-bar">
+    <span class="ctrl-label">Sort</span>
+    <select class="ctrl-select" id="sortField">
+      <option value="name">Name</option>
+      <option value="email">Email</option>
+      <option value="createdAt">Date</option>
+    </select>
+    <span class="ctrl-label">By</span>
+    <select class="ctrl-select" id="sortOrder">
+      <option value="asc">Ascending</option>
+      <option value="desc">Descending</option>
+    </select>
+    <span class="ctrl-label">Filter</span>
+    <input type="text" class="ctrl-input" id="filterInput" placeholder="Search...">
+  </div>
+
+  <!-- Table -->
+  <div class="table-card">
+    <table class="customers-table">
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Mobile</th>
+          <th>Status</th>
+          <th>Update</th>
+        </tr>
+      </thead>
+      <tbody id="customersBody">
+        <% if (customers && customers.length > 0) { %>
+          <% customers.forEach((customer, index) => { %>
+            <tr style="animation-delay: <%= index * 0.04 %>s">
+              <td><%= (currentPage - 1) * limit + index + 1 %></td>
+              <td><%= customer.fullName %></td>
+              <td><%= customer.email %></td>
+              <td><%= customer.phoneNumber || '—' %></td>
+              <td>
+                <label class="toggle">
+                  <input type="checkbox" 
+                    <%= customer.isBlocked ? '' : 'checked' %>
+                    onchange="toggleStatus('<%= customer._id %>', this.checked)">
+                  <span class="toggle-slider"></span>
+                </label>
+              </td>
+              <td>
+                <div class="action-btns">
+                  <button class="btn-edit" onclick="editCustomer('<%= customer._id %>')" title="Edit">✏️</button>
+                  <button class="btn-block" onclick="blockCustomer('<%= customer._id %>')" title="Block">🚫</button>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+        <% } else { %>
+          <tr>
+            <td colspan="6" style="text-align:center; padding:40px; color:#b07090; font-size:14px;">
+              No customers found.
+            </td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="pagination-bar">
+      <span class="page-info"><%= currentPage %> of <%= totalPages %> Pages</span>
+
+      <button class="btn-page" onclick="goToPage(<%= currentPage - 1 %>)" <%= currentPage <= 1 ? 'disabled' : '' %>>‹</button>
+
+      <% for (let i = 1; i <= totalPages; i++) { %>
+        <button class="btn-page <%= i === currentPage ? 'active' : '' %>" onclick="goToPage(<%= i %>)">
+          <%= i %>
+        </button>
+      <% } %>
+
+      <button class="btn-page" onclick="goToPage(<%= currentPage + 1 %>)" <%= currentPage >= totalPages ? 'disabled' : '' %>>›</button>
+    </div>
+  </div>
+
+</div>
+<script>
+  // ── Pre-fill controls from URL params on page load ────────────
+  const urlParams = new URLSearchParams(window.location.search);
+  document.getElementById('filterInput').value  = urlParams.get('search')    || '';
+  document.getElementById('sortField').value    = urlParams.get('sortField') || 'createdAt';
+  document.getElementById('sortOrder').value    = urlParams.get('sortOrder') || 'desc';
+
+  // ── Helper: rebuild URL with updated params ───────────────────
+  function applyParams(overrides = {}) {
+    const params = new URLSearchParams(window.location.search);
+    Object.entries(overrides).forEach(([k, v]) => {
+      if (v) params.set(k, v); else params.delete(k);
+    });
+    params.set('page', 1); // reset to page 1 on any filter/sort change
+    window.location.search = params.toString();
+  }
+
+  // ── Sort dropdowns ────────────────────────────────────────────
+  document.getElementById('sortField').addEventListener('change', function () {
+    applyParams({ sortField: this.value });
+  });
+
+  document.getElementById('sortOrder').addEventListener('change', function () {
+    applyParams({ sortOrder: this.value });
+  });
+
+  // ── Search (backend) with debounce — ii. ──────────────────────
+  let searchTimer;
+  document.getElementById('filterInput').addEventListener('input', function () {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      applyParams({ search: this.value.trim() || null });
+    }, 400);
+  });
+
+  // ── Pagination ────────────────────────────────────────────────
+  function goToPage(page) {
+    const params = new URLSearchParams(window.location.search);
+    params.set('page', page);
+    window.location.search = params.toString();
+  }
+
+  // ── Toggle switch (block/unblock) — i. ───────────────────────
+  function toggleStatus(id, isChecked) {
+    const action = isChecked ? 'unblock' : 'block';
+    if (!confirm(`Are you sure you want to ${action} this customer?`)) {
+      location.reload(); // revert toggle visual
+      return;
+    }
+    fetch(`/admin/customers/${action}/${id}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .then(res => res.json())
+    .then(data => {
+      alert(data.message);
+      location.reload();
+    })
+    .catch(() => {
+      alert('Something went wrong');
+      location.reload();
+    });
+  }
+
+  // ── Block button (🚫) — i. with confirmation ──────────────────
+  function blockCustomer(id) {
+    if (!confirm('Are you sure you want to block this customer?')) return;
+    fetch(`/admin/customers/block/${id}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .then(res => res.json())
+    .then(data => {
+      alert(data.message);
+      location.reload();
+    })
+    .catch(() => {
+      alert('Something went wrong');
+      location.reload();
+    });
+  }
+
+  function editCustomer(id) {
+    window.location.href = `/admin/customers/edit/${id}`;
+  }
+</script>
+
+<!-- <script>
+  function goToPage(page) {
+    const params = new URLSearchParams(window.location.search);
+    params.set('page', page);
+    window.location.search = params.toString();
+  }
+
+  function toggleStatus(id, isActive) {
+    fetch(`/admin/customers/toggle/${id}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ isBlocked: !isActive })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (!data.success) {
+        alert('Failed to update status');
+        location.reload();
+      }
+    })
+    .catch(() => location.reload());
+  }
+
+  function editCustomer(id) {
+    window.location.href = `/admin/customers/edit/${id}`;
+  }
+
+  function blockCustomer(id) {
+    if (confirm('Are you sure you want to block this customer?')) {
+      // fetch(`/admin/customers/block/${id}`, { method: 'POST' })
+      //   .then(res => res.json())
+      //   .then(() => location.reload());
+      // ✅ correct URL format in your EJS/JS
+fetch(`/admin/customers/block/${customerId}`, { method: 'POST' })
+fetch(`/admin/customers/unblock/${customerId}`, { method: 'POST' })
+    }
+  }
+
+  // Client-side filter
+  document.getElementById('filterInput').addEventListener('input', function () {
+    const q = this.value.toLowerCase();
+    document.querySelectorAll('#customersBody tr').forEach(row => {
+      row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+  });
+</script> -->
+
+
+<%- include('../partials/admin/adminFooter') %>

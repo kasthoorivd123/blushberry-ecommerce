@@ -1,20 +1,22 @@
 const User = require('../../models/user/userModel')
 const Address = require('../../models/user/addressModel')
-
+const bcrypt = require('bcrypt')
+const mongoose = require('mongoose')
  
+
 const loadProfile = async (req,res) =>{
   try {
     const userId = req.session.user._id;
    const user = await User.findById(userId).lean();
     const address  = await Address.findOne({user:userId,isDefault:true});
       const success = req.query.success === 'true' ? 'Profile updated successfully!' : null;
-      return res.render('user/userProfile',{ user, address: address || null, success,errors:null })
+         const pwSuccess = req.query.pwSuccess === 'true';
+      return res.render('user/userProfile',{ user, address: address || null, success,errors:null,pwSuccess })
     
   } catch (error) {
     res.status(500).json({error:'page not loading'})
   }
 }
-
 
 
 const updateProfile = async (req, res) => {
@@ -74,7 +76,6 @@ console.log("BODY:", req.body);
      updateData,
      { new: true }
    ).lean();
-
    
    req.session.user = {
      _id: updatedUser._id,
@@ -84,7 +85,6 @@ console.log("BODY:", req.body);
    
    };
 
-   
    res.redirect('/profile');
 
  } catch (error) {
@@ -94,10 +94,64 @@ console.log("BODY:", req.body);
 }
 
 
-         
+const changePassword = async (req, res) => {
+    try {
+        const { currentPassword, newPassword, confirmPassword } = req.body;
+        const errors = {};
+
+        // const findUser = await User.findById(req.session.user._id);
+         const userId = new mongoose.Types.ObjectId(req.session.user._id);
+const findUser = await User.findById(userId);
+        if (!findUser) return res.redirect('/profile');
+
+        const passwordMatch = await bcrypt.compare(currentPassword, findUser.password);
+
+        if (!currentPassword) {
+            errors.currentPassword = 'Current password is required';
+        } else if (!passwordMatch) {
+            errors.currentPassword = 'Invalid current password';
+        }
+
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&*!])[A-Za-z\d@#$%^&*!]{8,}$/;
+        if (!newPassword) {
+            errors.newPassword = 'Password is required';
+        } else if (!passwordRegex.test(newPassword)) {
+            errors.newPassword = 'Min 8 chars with uppercase, lowercase, number & special character';
+        }
+
+        if (!confirmPassword) {
+            errors.confirmPassword = 'Please confirm your password';
+        } else if (newPassword !== confirmPassword) {
+            errors.confirmPassword = 'Passwords do not match';
+        }
+
+        if (Object.keys(errors).length > 0) {
+            const address = await Address.findOne({ user: findUser._id, isDefault: true });
+            return res.render('user/userProfile', {
+                errors, user: findUser, success: null, address: address || null
+            });
+        }
+
+     const passwordHash = await bcrypt.hash(newPassword, 10);
+const result = await User.findByIdAndUpdate(
+  findUser._id,
+  { $set: { password: passwordHash } },
+  { new: true }
+);
+console.log('Password updated for:', result?.email);
+
+        res.redirect('/profile?pwSuccess=true');
+
+    } catch (error) {
+        console.log('ERROR:', error);
+        res.redirect('/profile');
+    }
+};
+
 
         
 module.exports = {
     loadProfile,
-    updateProfile
+    updateProfile,
+    changePassword
 }

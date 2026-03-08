@@ -319,7 +319,7 @@
     <!-- Change Password -->
     <div class="card">
       <div class="card-title"><span></span> Change Password</div>
-      <form action="/profile/change-password" method="POST">
+      <form action="/profile/changePassword" method="POST">
         <div class="form-grid">
           <div class="field full pw-field">
             <label>Current Password</label>
@@ -348,7 +348,11 @@
         </div>
       </form>
     </div>
-
+<% if (typeof pwSuccess !== 'undefined' && pwSuccess) { %>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => showToast('Password changed successfully!'));
+  </script>
+<% } %>
   </main>
 </div>
 

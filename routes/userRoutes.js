@@ -6,6 +6,7 @@ const userRouter = express.Router()
 
 const userController = require('../controllers/user/userAuthController')
 const profileController = require('../controllers/user/profileController')
+const addressController = require('../controllers/user/addressController')
 const {isLoggedIn, isLoggedOut} = require('../middleware/authMiddleware')
 
 
@@ -46,26 +47,7 @@ userRouter.post('/resendOtp', userController.resendOtp)
 // google auth — FIXED: removed trailing empty () from first route
 userRouter.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }))
 
-// userRouter.get('/auth/google/callback',
-//   passport.authenticate('google', { failureRedirect: '/login' }),
-//   (req, res) => {
-//     // FIXED: sync req.user (set by Passport) into req.session.user
-//     // so loadHomePage and all middleware can find the logged-in user
-//     req.session.user = {
-//       _id: req.user._id,
-//       email: req.user.email,
-//       isBlocked: req.user.isBlocked
-//     };
 
-//     req.session.save((err) => {
-//       if (err) {
-//         console.error('Session save error after Google login:', err);
-//         return res.redirect('/login');
-//       }
-//       res.redirect('/');
-//     });
-//   }
-// )
 userRouter.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
@@ -85,6 +67,19 @@ userRouter.get('/otp-forgot-password', userController.showForgotOtpPage)
 //profile
 userRouter.get('/profile',profileController.loadProfile)
 userRouter.post('/profile',upload.single('profilePhoto'),profileController.updateProfile)
+userRouter.post('/profile/changepassword',profileController.changePassword)
+
+
+// address
+userRouter.get('/addresses', addressController.loadAddresses)
+userRouter.get('/addresses/add',          addressController.loadAddAddress)
+userRouter.post('/addresses/add',       addressController.addAddress)
+userRouter.get('/addresses/edit/:id',      addressController.loadEditAddress)
+userRouter.post('/addresses/edit/:id',     addressController.editAddress)
+userRouter.post('/addresses/delete/:id', addressController.deleteAddress)
+userRouter.post('/addresses/default/:id', addressController.setDefaultAddress)
+
+
 // logout
 userRouter.get('/logout', isLoggedIn, userController.logout)
 

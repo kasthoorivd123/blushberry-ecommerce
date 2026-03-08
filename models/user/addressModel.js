@@ -1,48 +1,90 @@
 const mongoose = require('mongoose');
-const {Schema} = mongoose;
+const { Schema } = mongoose;
+
 const addressSchema = new Schema(
-    {
-    user:{
-        type:Schema.Types.ObjectId,
-        ref:'User',
-        required:true
+  {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
     },
 
-    name:{
-        type:String,
-        required:true
+    name: {
+      type: String,
+      required: true,
+      trim: true
     },
 
-    mobile:{
-        type:String,
-        required:true
+    country: {
+      type: String,
+      required: true,
+      trim: true
     },
 
-    pincode:{
-        type:String,
-        required:true
+    state: {
+      type: String,
+      required: true,
+      trim: true
     },
 
-    address:{
-        type:String,
-        required:true
+    address: {
+      type: String,
+      required: true,
+      trim: true
     },
-    city:{
-        type:String,
-        required:true
+
+    city: {
+      type: String,
+      required: false,
+      trim: true,
+      default: null
     },
-    state:{
-        type:String,
-        required:true
+
+    pincode: {
+      type: String,
+      required: true,
+      trim: true
     },
-    isDefault:{
-        type:Boolean,
-        default:false
+
+    addressType: {
+      type: String,
+      enum: ['Home', 'Work'],
+      default: 'Home'
+    },
+
+    landmark: {
+      type: String,
+      trim: true,
+      default: null
+    },
+
+    mobile: {
+      type: String,
+      required: true,
+      trim: true
+    },
+
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+      lowercase: true
+    },
+
+    alternateNumber: {
+      type: String,
+      trim: true,
+      default: null
+    },
+
+    isDefault: {
+      type: Boolean,
+      default: false
     }
-},
-{
-    timestamps:true
-}
-)
+  },
+  {
+    timestamps: true
+  }
+);
 
-module.exports = mongoose.model('Address',addressSchema)
+module.exports = mongoose.model('Address', addressSchema);
