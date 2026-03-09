@@ -44,18 +44,19 @@ userRouter.get('/otp', userController.loadOtpPage)
 userRouter.post('/verifyOtp', userController.verifyOtp)
 userRouter.post('/resendOtp', userController.resendOtp)
 
-// google auth — FIXED: removed trailing empty () from first route
+// google auth 
 userRouter.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }))
 
 
 userRouter.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
-    // Sync passport user into session.user
-    req.session.user = req.user; // ← add this
+
+    req.session.user = req.user; 
     res.redirect('/');
   }
 );
+
 // forgot password
 userRouter.get('/forgot-password', userController.LoadforgotPassword)
 userRouter.post('/api/forgot-password', userController.forgotPassword)
@@ -72,10 +73,10 @@ userRouter.post('/profile/changepassword',profileController.changePassword)
 
 // address
 userRouter.get('/addresses', addressController.loadAddresses)
-userRouter.get('/addresses/add',          addressController.loadAddAddress)
-userRouter.post('/addresses/add',       addressController.addAddress)
-userRouter.get('/addresses/edit/:id',      addressController.loadEditAddress)
-userRouter.post('/addresses/edit/:id',     addressController.editAddress)
+userRouter.get('/addresses/add', addressController.loadAddAddress)
+userRouter.post('/addresses/add',addressController.addAddress)
+userRouter.get('/addresses/edit/:id',addressController.loadEditAddress)
+userRouter.post('/addresses/edit/:id', addressController.editAddress)
 userRouter.post('/addresses/delete/:id', addressController.deleteAddress)
 userRouter.post('/addresses/default/:id', addressController.setDefaultAddress)
 

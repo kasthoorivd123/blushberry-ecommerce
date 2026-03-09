@@ -1,32 +1,28 @@
 const User = require('../../models/user/userModel')
 
-// ─────────────────────────────────────────────
-// GET /admin/customers?search=&page=1&limit=5&sortField=createdAt&sortOrder=desc
-// ─────────────────────────────────────────────
 const loadCustomer = async (req, res) => {
   try {
-    const page       = parseInt(req.query.page)  || 1;
-    const limit      = parseInt(req.query.limit) || 5;
-    const search     = req.query.search?.trim()  || "";
-    const sortField  = req.query.sortField       || "createdAt";
-    const sortOrder  = req.query.sortOrder       || "desc";
-    const skip       = (page - 1) * limit;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 5;
+    const search = req.query.search?.trim() || "";
+    const sortField = req.query.sortField || "createdAt";
+    const sortOrder = req.query.sortOrder || "desc";
+    const skip = (page - 1) * limit;
 
-    // ii. Search filter
     const searchFilter = search
       ? {
-          $or: [
-            { fullName:    { $regex: search, $options: "i" } },
-            { email:       { $regex: search, $options: "i" } },
-            { phoneNumber: { $regex: search, $options: "i" } },
-          ],
-        }
+        $or: [
+          { fullName: { $regex: search, $options: "i" } },
+          { email: { $regex: search, $options: "i" } },
+          { phoneNumber: { $regex: search, $options: "i" } },
+        ],
+      }
       : {};
 
     const totalUsers = await User.countDocuments(searchFilter);
     const totalPages = Math.ceil(totalUsers / limit);
 
-    // iv. Sort — field and direction from query params
+
     const sortOptions = { [sortField]: sortOrder === "asc" ? 1 : -1 };
 
     const customers = await User.find(searchFilter)
@@ -36,16 +32,17 @@ const loadCustomer = async (req, res) => {
       .select("-password");
 
     return res.render("admin/customers", {
+       user: req.session.user || null,
       customers,
-      currentPage : page,
+      currentPage: page,
       totalPages,
       totalUsers,
       limit,
       search,
       sortField,
       sortOrder,
-      hasNextPage : page < totalPages,
-      hasPrevPage : page > 1,
+      hasNextPage: page < totalPages,
+      hasPrevPage: page > 1,
     });
   } catch (error) {
     console.error("loadCustomer error:", error);
@@ -53,9 +50,7 @@ const loadCustomer = async (req, res) => {
   }
 };
 
-// ─────────────────────────────────────────────
-// POST /admin/customers/block/:id
-// ─────────────────────────────────────────────
+
 const blockUser = async (req, res) => {
   try {
     const { id } = req.params;
@@ -73,8 +68,8 @@ const blockUser = async (req, res) => {
     await customer.save();
 
     return res.status(200).json({
-      success : true,
-      message : `${customer.fullName} has been blocked successfully`,
+      success: true,
+      message: `${customer.fullName} has been blocked successfully`,
     });
   } catch (error) {
     console.error("blockUser error:", error);
@@ -82,9 +77,8 @@ const blockUser = async (req, res) => {
   }
 };
 
-// ─────────────────────────────────────────────
-// POST /admin/customers/unblock/:id
-// ─────────────────────────────────────────────
+
+
 const unblockUser = async (req, res) => {
   try {
     const { id } = req.params;
@@ -102,8 +96,8 @@ const unblockUser = async (req, res) => {
     await customer.save();
 
     return res.status(200).json({
-      success : true,
-      message : `${customer.fullName} has been unblocked successfully`,
+      success: true,
+      message: `${customer.fullName} has been unblocked successfully`,
     });
   } catch (error) {
     console.error("unblockUser error:", error);

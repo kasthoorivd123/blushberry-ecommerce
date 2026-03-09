@@ -16,7 +16,7 @@ const loadHomePage = async (req, res) => {
     const userId = req.session.user?._id || req.user?._id;
 
     if (userId) {
-      user = await User.findById(userId); // always fetch fresh from DB
+      user = await User.findById(userId); 
       console.log('profilePhoto:', user?.profilePhoto);
     }
 
@@ -26,6 +26,7 @@ const loadHomePage = async (req, res) => {
     res.render('user/homePage', { user: null });
   }
 };
+
 // Load signup page
 const loadSignUp = (req, res) => {
   try {
@@ -124,7 +125,7 @@ const verifyOtp = async (req, res) => {
           await Otp.deleteOne({ email, purpose: flow });
           req.session.tempUser = null;
 
-          // Also set session.user so navbar works consistently
+         
           req.session.user = {
             _id: newUser._id,
             email: newUser.email,
@@ -233,11 +234,12 @@ const login = async (req, res) => {
   }
 };
 
-
 // Forgot password
 const LoadforgotPassword = (req, res) => {
   res.render('user/forgotPassword.ejs');
 };
+
+
 
 const forgotPassword = async (req, res) => {
   try {
@@ -267,6 +269,7 @@ const forgotPassword = async (req, res) => {
     res.status(500).json({ success: false, message: "Server error" });
   }
 };
+
 
 
 // Show OTP page for forgot password
@@ -312,6 +315,7 @@ const resetPassword = async (req, res) => {
 };
 
 
+
 const loadOtpPage = async (req, res) => {
   try {
     const email = req.session.tempUser?.email || req.session.forgotEmail;
@@ -333,7 +337,7 @@ const loadOtpPage = async (req, res) => {
 };
 
 
-// Logout — destroys session entirely
+
 const logout = async (req, res) => {
   try {
     req.session.destroy(() => {

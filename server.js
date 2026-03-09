@@ -44,22 +44,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(nocache())
 
-// app.get("/debug", (req, res) => {
-//   console.log("Session object:", req.session);
-//   console.log("req.user:", req.user);
-//   console.log("isAuthenticated:", req.isAuthenticated());
-//   res.json({
-//     session: req.session,
-//     user: req.user,
-//     isAuthenticated: req.isAuthenticated()
-//   });
-// });
 
-// app.js or server.js
-app.use((req, res, next) => {
-  res.locals.user = req.session.user || null;
-  next();
-});
 
 app.set('view engine','ejs')
 
@@ -68,16 +53,7 @@ app.set('views',path.join(__dirname,'views'))
 app.use('/',userRouter)
 app.use('/admin',adminRouter)
 
-// app.get('/',(req,res)=>{
-//     res.send('Blushberry Home')
-// })
-app.get("/check-session", (req, res) => {
-  res.json({
-    isAuthenticated: req.isAuthenticated(),
-    user: req.user,
-    session: req.session
-  });
-});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {

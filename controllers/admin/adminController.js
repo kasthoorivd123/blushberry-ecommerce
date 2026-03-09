@@ -6,7 +6,12 @@ const loadAdminLogin = (req, res) => {
 }
 
 const loadDashboard = async (req, res) => {
-   res.render('admin/dashboard')
+   try {
+    const user = req.session.user || null   // ← add this
+    res.render('admin/dashboard', { user })  // ← pass user
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 const adminLogin = async (req, res) => {
@@ -48,19 +53,19 @@ const adminLogin = async (req, res) => {
 }
 
 const adminLogout = async (req, res) => {
-  try {
-    req.session.destroy((err) => {
-      if (err) {
-        console.error("adminLogout error:", err);
+    try {
+        req.session.destroy((err) => {
+            if (err) {
+                console.error("adminLogout error:", err);
+                return res.redirect("/admin/dashboard");
+            }
+            res.clearCookie("connect.sid");
+            return res.redirect("/admin/login");
+        });
+    } catch (error) {
+        console.error("adminLogout error:", error);
         return res.redirect("/admin/dashboard");
-      }
-      res.clearCookie("connect.sid"); // clear session cookie
-      return res.redirect("/admin/login");
-    });
-  } catch (error) {
-    console.error("adminLogout error:", error);
-    return res.redirect("/admin/dashboard");
-  }
+    }
 };
 
 module.exports = {

@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
 
     password :{
         type:String,
-        required:true
+        required:false
     },
 
     googleId:{
@@ -32,9 +32,10 @@ const userSchema = new mongoose.Schema({
       type: String,
       required: false,
       unique: false,
-    //   sparse: true,
+   
       default: null,
      },
+     
     authProviders:{
          type:[String], //['manual','google']
          default:[]
